@@ -10,7 +10,7 @@ feature 'restaurants' do
     end
   end
 
-  context ' restaurants have been added' do
+  context 'restaurants have been added' do
     before do
       Restaurant.create(name: 'KFC')
     end
@@ -30,6 +30,19 @@ feature 'restaurants' do
       click_button 'Create Restaurant'
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
+    end
+  end
+
+  context 'viewing restaurants' do
+    before do
+      @kfc = Restaurant.create(name: 'KFC')
+    end
+
+    it 'lets a user view a restaurant' do
+      visit '/restaurants'
+      click_link 'KFC'
+      expect(page).to have_content 'KFC'
+      expect(current_path).to eq "restaurants/#{@kfc.id}"
     end
   end
 
