@@ -1,8 +1,22 @@
 <% if @restaurants.any? %>
-  <% @restaurants.each do |restaurant| %>
-    <%= link_to "#{restaurant.name}", restaurant_path(restaurant) %>
-  <% end %>
+  <ul>
+    <% @restaurants.each do |restaurant| %>
+      <li class="restaurant-listing">
+        <section class="header">
+          <h2 class="restaurant-name">
+            <%= link_to "#{restaurant.name}", restaurant_path(restaurant) %>
+          </h2>
+          <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant), class:"edit"  %>
+        </section>
+        <section class="body">
+          <p>
+            <%= restaurant.description %>
+          </p>
+        </section>
+      </li>
+    <% end %>
+  </ul>
 <% else %>
   <h1>No restaurants yet</h1>
 <% end %>
-<%= link_to 'Add a restaurant', new_restaurant_path %>
+<%= link_to 'Add a restaurant', new_restaurant_path, class:"add-restaurant" %>
