@@ -42,6 +42,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :test do
   gem 'rspec-rails'
