@@ -13,11 +13,8 @@
       Yelpy
     </h1>
     <% if user_signed_in? %>
-<<<<<<< HEAD
       <%= link_to "Sign out", destroy_user_path, method: :delete %>
-=======
       <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
->>>>>>> 73b030a3a2d4ecd19ca506f00d04b5acac47c3fc
     <% else %>
       <%= link_to "Sign in", new_user_session_path %>
       <%= link_to "Sign up", new_user_registration_path %>
