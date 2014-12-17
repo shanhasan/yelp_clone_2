@@ -23,6 +23,13 @@ header h1 {
   color: #fff;
 }
 
+<<<<<<< HEAD
+=======
+header a {
+  color: #fff;
+}
+
+>>>>>>> 73b030a3a2d4ecd19ca506f00d04b5acac47c3fc
 content {
   padding: 0 20px 20px 20px;
   display: block;
