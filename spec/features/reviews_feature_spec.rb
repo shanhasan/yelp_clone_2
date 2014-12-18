@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'timecop'
 
 describe 'reviewing' do
   before do
@@ -28,5 +29,11 @@ describe 'reviewing' do
     leave_review("so, so", '3')
     leave_review("Greate", '5')
     expect(page).to have_content('Average rating: ★★★★☆')
+  end
+
+  scenario 'displays time when review was submitted' do
+    leave_review('so, so', '3')
+    Timecop.travel(Time.now + 3600)
+    expect(page).to have_content('reviewed 1 hour ago')
   end
 end
