@@ -49,4 +49,6 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'capybara'
   gem 'timecop'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
