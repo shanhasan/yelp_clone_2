@@ -1,9 +1,12 @@
 require 'rails_helper'
 
-describer ReviewsHelper, :type => :helper do
+describe ReviewsHelper, :type => :helper do
   context '#star_rating' do
     it 'does nothing for not a number' do
       expect(helper.star_rating('N/A')).to eq 'N/A'
+    end
+    it 'returns three black stars and two white stars for three' do
+      expect(helper.star_rating(3)).to eq '★★★☆☆'
     end
   end
 end
