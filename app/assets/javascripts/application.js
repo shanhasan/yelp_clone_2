@@ -1,3 +1,8 @@
+// = require jquery
+// = require jquery_ujs
+// = require turbolinks
+// = require_tree .
+
 $(document).ready(function(){
 
   $('.endorsements-link').on('click', function(event){
@@ -7,6 +12,7 @@ $(document).ready(function(){
 
     $.post(this.href, function(response){
       endorsementCount.text(response.new_endorsement_count);
-    })
-  })
-})
+    });
+  });
+
+});
