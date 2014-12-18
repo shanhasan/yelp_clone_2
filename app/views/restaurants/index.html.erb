@@ -17,6 +17,7 @@
 
             <h3>Reviews for <%= restaurant.name %></h3>
             <% if restaurant.reviews.any? %>
+            <h3>Average rating: <%= restaurant.average_rating.to_i%></h3>
               <ul>
                 <% restaurant.reviews.each do |review| %>
                   <li>
