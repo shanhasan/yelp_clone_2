@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'reviewing' do
   before do
     Restaurant.create(name: 'KFC')
-end
+  end
 
   it "allows users to leave a review using a form" do
     visit '/restaurants'
