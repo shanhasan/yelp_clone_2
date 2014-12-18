@@ -15,4 +15,18 @@ end
     expect(current_path).to eq '/restaurants'
     expect(page).to have_content('so so')
   end
+
+  def leave_review(thoughts, rating)
+    visit '/restaurants'
+    click_link "review KFC"
+    fill_in "Thoughts", with: thoughts
+    select rating, from: 'Rating'
+    click_button 'Leave Review'
+  end
+
+  scenario 'displays an average rating for all reviews' do
+    leave_review("so, so", '3')
+    leave_review("Greate", '5')
+    expect(page).to have_content('Average rating: 4')
+  end
 end
