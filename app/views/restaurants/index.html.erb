@@ -21,7 +21,8 @@
               <ul>
                 <% restaurant.reviews.each do |review| %>
                   <li>
-                    <%= review.thoughts %>, <strong><%= review.rating %></strong>/5
+                    <p><%= review.thoughts %>, <strong><%= review.rating %></strong>/5</p>
+                    <p>Reviewed <%= time_ago_in_words(review.created_at) %> ago</p>
                   </li>
                 <% end %>
               </ul>

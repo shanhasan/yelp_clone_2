@@ -32,8 +32,9 @@ describe 'reviewing' do
   end
 
   scenario 'displays time when review was submitted' do
-    leave_review('so, so', '3')
+    leave_review('Really good', '5')
     Timecop.travel(Time.now + 3600)
-    expect(page).to have_content('reviewed 1 hour ago')
+    visit '/restaurants'
+    expect(page).to have_content('Reviewed about 1 hour ago')
   end
 end
