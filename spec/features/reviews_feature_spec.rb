@@ -27,6 +27,6 @@ describe 'reviewing' do
   scenario 'displays an average rating for all reviews' do
     leave_review("so, so", '3')
     leave_review("Greate", '5')
-    expect(page).to have_content('Average rating: 4')
+    expect(page).to have_content('Average rating: ★★★★☆')
   end
 end
