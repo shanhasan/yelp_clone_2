@@ -27,6 +27,16 @@ feature 'restaurants' do
     end
   end
 
+  def create_restaurant(name)
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
+    Restaurant.create(name: name)
+  end
+
   context 'creating restaurants' do
     before do
       Restaurant.create(name: 'KFC')
@@ -83,13 +93,7 @@ feature 'restaurants' do
 
   context 'updating restaurants' do
     before do
-      Restaurant.create(name: 'KFC')
-      visit('/')
-      click_link('Sign up')
-      fill_in('Email', with: 'test@example.com')
-      fill_in('Password', with: 'testtest')
-      fill_in('Password confirmation', with: 'testtest')
-      click_button('Sign up')
+      create_restaurant('KFC')
     end
     it 'lets a user edit a restaurant' do
       visit '/restaurants'
@@ -103,13 +107,7 @@ feature 'restaurants' do
 
   context 'deleting restaurants' do
     before do
-      Restaurant.create(name: 'KFC')
-      visit('/')
-      click_link('Sign up')
-      fill_in('Email', with: 'test@example.com')
-      fill_in('Password', with: 'testtest')
-      fill_in('Password confirmation', with: 'testtest')
-      click_button('Sign up')
+      create_restaurant('KFC')
     end
     it 'removes a restaurant when a user clicks the delete link' do
       visit '/restaurants'
@@ -121,13 +119,7 @@ feature 'restaurants' do
 
   context 'adding photos to restaurants' do
     before do
-      Restaurant.create(name: 'KFC')
-      visit('/')
-      click_link('Sign up')
-      fill_in('Email', with: 'test@example.com')
-      fill_in('Password', with: 'testtest')
-      fill_in('Password confirmation', with: 'testtest')
-      click_button('Sign up')
+      create_restaurant('KFC')
       @file = fixture_file_upload('files/kfc.jpg', 'image/jpeg')
     end
     it 'lets a user add a photo to a restaurant' do
