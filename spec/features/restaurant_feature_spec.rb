@@ -68,9 +68,11 @@ feature 'restaurants' do
 
   context 'updating restaurants' do
     before do
-      create_restaurant('KFC')
+      signup
+      @kfc = Restaurant.create(name: 'KFC')
+      @subway = Restaurant.create(name: 'Subway')
     end
-    it 'lets a user edit a restaurant' do
+    it 'lets a user edit a restaurant that they have created' do
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -78,24 +80,10 @@ feature 'restaurants' do
       expect(page).to have_content 'Kentucky Fried Chicken'
       expect(current_path).to eq '/restaurants'
     end
-  end
-
-  context 'deleting restaurants' do
-    before do
-      create_restaurant('KFC')
-    end
-    it 'removes a restaurant when a user clicks the delete link' do
+    it "doesn't a user edit a restaurant that they haven't created" do
       visit '/restaurants'
-      click_link 'Delete KFC'
-      expect(page).not_to have_content 'KFC'
-      expect(page).to have_content 'Restaurant deleted successfully'
-    end
-  end
-
-  context 'adding photos to restaurants' do
-    before do
-      create_restaurant('KFC')
-      @file = fixture_file_upload('files/kfc.jpg', 'image/jpeg')
+      click_link 'Edit Subway'
+      expect(page).to have_content 'You cannot edit a restaurant that you did not create'
     end
     it 'lets a user add a photo to a restaurant' do
       visit '/restaurants'
@@ -106,9 +94,17 @@ feature 'restaurants' do
     end
   end
 
-  def create_restaurant(name)
-    signup
-    Restaurant.create(name: name)
+  context 'deleting restaurants' do
+    before do
+      signup
+      @kfc = Restaurant.create(name: 'KFC')
+    end
+    it 'removes a restaurant when a user clicks the delete link' do
+      visit '/restaurants'
+      click_link 'Delete KFC'
+      expect(page).not_to have_content 'KFC'
+      expect(page).to have_content 'Restaurant deleted successfully'
+    end
   end
 
   def signup
