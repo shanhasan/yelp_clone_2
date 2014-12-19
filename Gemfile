@@ -43,6 +43,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'dotenv-rails', :groups => [:development, :test]
+gem 'paperclip'
 
 group :test do
   gem 'rspec-rails'
