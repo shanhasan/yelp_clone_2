@@ -4,12 +4,7 @@ feature 'restaurants' do
 
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
-      visit('/')
-      click_link('Sign up')
-      fill_in('Email', with: 'test@example.com')
-      fill_in('Password', with: 'testtest')
-      fill_in('Password confirmation', with: 'testtest')
-      click_button('Sign up')
+      signup
       visit '/restaurants'
       expect(page).to have_content 'No restaurants yet'
       expect(page).to have_link 'Add a restaurant'
@@ -27,16 +22,6 @@ feature 'restaurants' do
     end
   end
 
-  def create_restaurant(name)
-    visit('/')
-    click_link('Sign up')
-    fill_in('Email', with: 'test@example.com')
-    fill_in('Password', with: 'testtest')
-    fill_in('Password confirmation', with: 'testtest')
-    click_button('Sign up')
-    Restaurant.create(name: name)
-  end
-
   context 'creating restaurants' do
     before do
       Restaurant.create(name: 'KFC')
@@ -49,12 +34,7 @@ feature 'restaurants' do
     end
     context 'authenticated user' do
       scenario 'prompts an authenticated user for fill out a form, then displays the new restaurant' do
-        visit('/')
-        click_link('Sign up')
-        fill_in('Email', with: 'test@example.com')
-        fill_in('Password', with: 'testtest')
-        fill_in('Password confirmation', with: 'testtest')
-        click_button('Sign up')
+        signup
         click_link 'Add a restaurant'
         fill_in 'Name', with: 'Canteen'
         click_button 'Create Restaurant'
@@ -64,12 +44,7 @@ feature 'restaurants' do
     end
     context 'an invalid restaurant' do
       scenario 'does not let you submit a name that is too short' do
-        visit('/')
-        click_link('Sign up')
-        fill_in('Email', with: 'test@example.com')
-        fill_in('Password', with: 'testtest')
-        fill_in('Password confirmation', with: 'testtest')
-        click_button('Sign up')
+        signup
         click_link 'Add a restaurant'
         fill_in 'Name', with: 'kf'
         click_button 'Create Restaurant'
@@ -129,5 +104,19 @@ feature 'restaurants' do
       click_button 'Update Restaurant'
       expect(page).to have_css 'img'
     end
+  end
+
+  def create_restaurant(name)
+    signup
+    Restaurant.create(name: name)
+  end
+
+  def signup
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
   end
 end
