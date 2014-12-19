@@ -118,4 +118,24 @@ feature 'restaurants' do
       expect(page).to have_content 'Restaurant deleted successfully'
     end
   end
+
+  context 'adding photos to restaurants' do
+    before do
+      Restaurant.create(name: 'KFC')
+      visit('/')
+      click_link('Sign up')
+      fill_in('Email', with: 'test@example.com')
+      fill_in('Password', with: 'testtest')
+      fill_in('Password confirmation', with: 'testtest')
+      click_button('Sign up')
+      @file = fixture_file_upload('files/kfc.jpg', 'image/jpeg')
+    end
+    it 'lets a user add a photo to a restaurant' do
+      visit '/restaurants'
+      click_link 'Edit KFC'
+      attach_file('restaurant_image', './spec/fixtures/files/kfc.jpg')
+      click_button 'Update Restaurant'
+      expect(page).to have_css 'img'
+    end
+  end
 end

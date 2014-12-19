@@ -11,26 +11,30 @@
           <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant), class:"review" %>
         </section>
         <section class="body">
+          <% if restaurant.image_file_name %>
+            <%= image_tag restaurant.image.url(:thumb) %>
+          <% end %>
           <p>
             <%= restaurant.description %>
           </p>
-
-            <h3>Reviews for <%= restaurant.name %></h3>
-            <% if restaurant.reviews.any? %>
-            <h3>Average rating: <%= star_rating(restaurant.average_rating) %> <%= restaurant.average_rating.to_i%></h3>
-              <ul>
-                <% restaurant.reviews.each do |review| %>
-                  <li>
-                    <p><%= review.thoughts %>, <strong><%= review.rating %></strong>/5</p>
-                    <p>Reviewed <%= time_ago_in_words(review.created_at) %> ago</p>
-                    <p><%= link_to "Endorse #{restaurant.name}", review_endorsements_path(review), class: 'endorsements-link' %> | 
-                      <span class="endorsements_count"><%= review.endorsements.count %></span> endorsements</p>
-                  </li>
-                <% end %>
-              </ul>
-            <% else %>
-              <p>No reviews.</p>
-            <% end %>
+          <h3>
+            Reviews for <%= restaurant.name %>
+          </h3>
+          <% if restaurant.reviews.any? %>
+          <h3>Average rating: <%= star_rating(restaurant.average_rating) %> <%= restaurant.average_rating.to_i%></h3>
+            <ul>
+              <% restaurant.reviews.each do |review| %>
+                <li>
+                  <p><%= review.thoughts %>, <strong><%= review.rating %></strong>/5</p>
+                  <p>Reviewed <%= time_ago_in_words(review.created_at) %> ago</p>
+                  <p><%= link_to "Endorse #{restaurant.name}", review_endorsements_path(review), class: 'endorsements-link' %> |
+                    <span class="endorsements_count"><%= review.endorsements.count %></span> endorsements</p>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No reviews.</p>
+          <% end %>
         </section>
       </li>
     <% end %>
